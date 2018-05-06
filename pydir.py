@@ -39,4 +39,3 @@ def get_files(path, ext=None):
 
 x = get_files(gtpmid_dir)
 [print(s) for s in x]
-# print (x)
