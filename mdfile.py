@@ -1205,9 +1205,9 @@ class MidiTrack(list):
         return '<midi track {!r} {} messages>'.format(self.name, len(self))
 
 class MidiFile:
-    def __init__(self, filename=None, type=1,
-                 ticks_per_beat=DEFAULT_TICKS_PER_BEAT,
-                 charset='latin1'):
+    def __init__(self, filename: object = None, type: object = 1,
+                 ticks_per_beat: object = DEFAULT_TICKS_PER_BEAT,
+                 charset: object = 'latin1') -> object:
         self.filename = filename
         self.tracks = []
         self.charset = charset

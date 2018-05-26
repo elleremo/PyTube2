@@ -26,7 +26,7 @@ class Folder:
         self.name = name
         self.parentfolder = parentfolder
         self.path = parentfolder + '/' + name
-        self.files = pydir.get_files(self.path)
+        # self.files = pydir.get_files(self.path)
 
    # def getfilesExt (self):
 
@@ -66,4 +66,3 @@ def getListFiles(folder, ext):
     return files
 
 
-z = Folder()
