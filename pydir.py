@@ -25,17 +25,27 @@ def is_empty_dir(path):
 
 # Получить список поддиректорий c полным путем
 def get_subdirs(path):
-    subdirs = [os.path.join(path, f) for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
-    return subdirs
+
+    if is_empty_dir(path):
+        print("Папка по пути " + path + ' ПУСТА' )
+    else:
+        subdirs = [os.path.join(path, f) for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
+        return subdirs
 
 
 def get_files(path, ext=None):
     """Получить список файлов без расширение или с ним"""
 
-    if ext is None:
-        files = [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
-        return files
+    if is_empty_dir(path):
+        print("Папка по пути " + path + ' ПУСТА')
     else:
-        files = [os.path.join(path, f) for f in os.listdir(path) if f.endswith("." + ext)]
-        return files
+        if ext is None:
+            files = [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+            return files
+        else:
+            files = [os.path.join(path, f) for f in os.listdir(path) if f.endswith("." + ext)]
+            return files
 
+# gg = get_subdirs(gtpmid_dir)
+# pp = get_files(gg[0])
+# print(os.path.abspath ( pp[0] ))

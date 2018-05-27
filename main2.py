@@ -5,6 +5,11 @@ from mdfile import MidiFile
 # os.listdir(path=".") - список файлов и директорий в папке.
 # os.chdir(path) - смена текущей директории.
 
+# os.path.basename(path) - имя файла/папки по указанному пути
+# os.path.dirname(path) - путь до родительской папки
+# os.path.basename(os.path.dirname(path)) - имя родительской папки
+
+
 main_dir = os.getcwd()  # текущая дериктория
 # print("Текущая дериктория =", main_dir)
 
@@ -28,8 +33,15 @@ class Folder:
         """ Получить файлы. Указать расширение, если нужен конкретный тип файлов """
         self.files = getListFiles(self.path, ext)
 
+class Basefile:
 
-class MidFile:
+    def __init__(self, path):
+        self.name = os.path.basename(path)
+        self.path = path
+        self.parfolder = os.path.dirname(path)
+        self.artist = os.path.basename(os.path.dirname(path))
+
+class Midfile:
 
     def __init__(self, path):
         self.name = os.path.basename(path)
