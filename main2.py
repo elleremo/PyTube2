@@ -1,6 +1,10 @@
 import pydir
 import os
-from mdfile import MidiFile
+
+from pprint import pprint
+import time
+
+from mdfile import MidiFile as MD
 
 # os.listdir(path=".") - список файлов и директорий в папке.
 # os.chdir(path) - смена текущей директории.
@@ -13,10 +17,10 @@ from mdfile import MidiFile
 main_dir = os.getcwd()  # текущая дериктория
 # print("Текущая дериктория =", main_dir)
 
-unrec_dir = "D:/Projects SSD/YouTube 2018/PyTube2/Unrecorded"
-rec_dir = "D:/Projects SSD/YouTube 2018/PyTube2/Recorded"
-midi_dir = "D:/Projects SSD/YouTube 2018/PyTube2/Midi"
-gtp_midi = "D:/Projects SSD/YouTube 2018/PyTube2/GTP_MIDI"
+unrec_dir = 'D:\Projects SSD/YouTube 2018/PyTube2/Unrecorded'
+rec_dir = 'D:/Projects SSD/YouTube 2018/PyTube2/Recorded'
+midi_dir = 'D:/Projects SSD/YouTube 2018/PyTube2/Midi'
+gtp_midi = 'D:/Projects SSD/YouTube 2018/PyTube2/GTP_MIDI'
 
 
 class Folder:
@@ -33,32 +37,42 @@ class Folder:
         """ Получить файлы. Указать расширение, если нужен конкретный тип файлов """
         self.files = getListFiles(self.path, ext)
 
+
 class Basefile:
 
     def __init__(self, path):
-        self.name = os.path.basename(path)
+        self.fullname = os.path.basename(path)
+        self.name = os.path.splitext(self.fullname)[0]
+        self.ext = os.path.splitext(self.fullname)[1]
         self.path = path
         self.parfolder = os.path.dirname(path)
-        self.artist = os.path.basename(os.path.dirname(path))
 
-class Midfile:
+    def __str__(self):
+        return self.fullname
 
+    def __repr__(self):
+        return 'Basefile ("' + self.fullname + '")'
+
+
+class Midifile(Basefile):
     def __init__(self, path):
-        self.name = os.path.basename(path)
-        self.parfolder = os.path.dirname(path)
-        self.path = path
+        super().__init__(path)
         self.artist = os.path.basename(os.path.dirname(path))
-        #self.duration = MidiFile(path).length
+
+    def get_duration(self):
+        self.length = MD(self.path).length
+
+    def __repr__(self):
+        return 'Midifile ("' + self.fullname + '")'
 
 
 # ======================================================
 
 def getListFolders(folder):
     """Создать список обектов Folder в указаннной папке"""
-    subdirs = []
-    if not pydir.is_empty_dir(folder):
-        tempsubdirs = pydir.get_subdirs(folder)
-        subdirs = [Folder(dir) for dir in tempsubdirs]
+
+    tempsubdirs = pydir.get_subdirs(folder)
+    subdirs = [Folder(dir) for dir in tempsubdirs]
 
     return subdirs
 
@@ -67,38 +81,23 @@ def getListFolders(folder):
 
 def getListFiles(folder, ext=None):
     """Создать список обектов File в указаннной папке"""
+
     files = []
+    tempfiles = pydir.get_files(folder, ext)
 
-    if not pydir.is_empty_dir(folder):
-        tempfiles = pydir.get_files(folder, ext)
-
-        if ext is None:
-            return tempfiles
-        else:
-            for file in tempfiles:
-                temp = MidFile(file)
-                files.append(temp)
-            return files
-
+    if ext is None:
+        for file in tempfiles:
+            temp = Basefile(file)
+            files.append(temp)
+        return files
+    elif ext == "mid":
+        for file in tempfiles:
+            temp = Midifile(file)
+            files.append(temp)
+        return files
 
 
 # ------------------------------------------------------
-
-def pr(arr, z):
-    for f in arr:
-        print(getattr(f, z))
+x = Midifile('D:\Projects SSD\YouTube 2018\PyTube2\GTP_MIDI\Black Veil Brides -Gtp\Black Veil Brides - Carolyn  .mid')
 
 
-x = getListFolders(gtp_midi)  # получили список подпапок
-pr(x, "name")
-
-num = 0
-
-for sub in x:
-    sub.getfiles("mid") # вызвали функцию получить файлы
-
-    for mfile in sub.files:
-        #print(mfile.name)
-        num += 1
-
-print (num)

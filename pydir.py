@@ -19,7 +19,6 @@ def is_empty_dir(path):
         print(path, ": пусто")
         return True
     else:
-        print(path, ": не пусто")
         return False
 
 
