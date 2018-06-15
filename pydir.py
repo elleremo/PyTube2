@@ -1,5 +1,5 @@
 import os
-import glob
+import shutil
 
 # os.listdir(path=".") - список файлов и директорий в папке.
 # os.chdir(path) - смена текущей директории.
@@ -44,6 +44,9 @@ def get_files(path, ext=None):
         else:
             files = [os.path.join(path, f) for f in os.listdir(path) if f.endswith("." + ext)]
             return files
+
+
+
 
 # gg = get_subdirs(gtpmid_dir)
 # pp = get_files(gg[0])

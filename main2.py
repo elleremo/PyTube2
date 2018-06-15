@@ -98,6 +98,6 @@ def getListFiles(folder, ext=None):
 
 
 # ------------------------------------------------------
-x = Midifile('D:\Projects SSD\YouTube 2018\PyTube2\GTP_MIDI\Black Veil Brides -Gtp\Black Veil Brides - Carolyn  .mid')
-
-
+x = Folder('D:\Projects SSD\YouTube 2018\PyTube2\GTP_MIDI\Black Veil Brides -Gtp')
+x.getfiles()
+print (x.files)

@@ -1,12 +1,13 @@
 import os
+import shutil
 
-unrec_dir = "D:/Projects SSD/YouTube 2018/PyTube2/Unrecorded"
-rec_dir = "D:/Projects SSD/YouTube 2018/PyTube2/Recorded"
-midi_dir = "D:/Projects SSD/YouTube 2018/PyTube2/Midi"
-gtpmid_dir = "D:/Projects SSD/YouTube 2018/PyTube2/GTP_MIDI"
+
+unrec_dir = r"D:/Projects SSD//YouTube 2018/PyTube2/Unrecorded"
+rec_dir = "D:/Projects SSD/YouTube 2018/PyTube2\Recorded"
+midi_dir = "D:/Projects SSD/YouTube 2018/\PyTube2/Midi"
+gtpmid_dir = "D:/Projects SSD/YouTube 2018/PyTube2\GTP_MIDI"
 
 x = unrec_dir
-print (x)
 
 a = os.path.dirname(x)
 b = os.path.basename(x)
@@ -16,13 +17,14 @@ e = os.path.realpath(x)
 
 
 def prt():
-    print('путь родительской папки : ', a)
-    print('имя файла/папки : ', b)
-    print('абсолютный путь  : ', c)
-    print('нормализайия  : ', d)
-    print('какннический путь  : ', e)
+    print('dirname - путь родительской папки : ', a)
+    print('basename - имя файла/папки : ', b)
+    print('abspath - абсолютный путь  : ', c)
+    print('normpath - нормализайия  : ', d)
+    print('realpath - канонический путь  : ', e)
 
-prt()
+#print(x, "\n")
+#prt()
 
 # ===========================================================
 
@@ -41,5 +43,11 @@ class Midfile(Basefile):
         self.artist = os.path.basename(os.path.dirname(path))
         #self.duration = MidiFile(path).length
 
+# ===========================================================
 
+def copy_file(file, dst):
 
+    e = shutil.copy2(file, dst)
+    print (e)
+
+copy_file(r'D:\Projects SSD\YouTube 2018\PyTube2\Midi\rgaergvb2.txt', 'Recorded' )
